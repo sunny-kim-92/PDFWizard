@@ -36,14 +36,19 @@ class Upload extends Component {
 
       this.setState({ successfullUploaded: true, uploading: false });
     } catch (e) {
-      // Not Production ready! Do some error handling here instead...
-      this.setState({ successfullUploaded: true, uploading: false });
+      console.log('error with uploadFiles')
     }
   }
 
   sendRequest(file) {
     return new Promise((resolve, reject) => {
       const req = new XMLHttpRequest();
+
+      req.onreadystatechange = function() {
+        if (req.readyState === XMLHttpRequest.DONE) {
+          console.log(req.responseText)
+        }
+    }
 
       req.upload.addEventListener("progress", event => {
         if (event.lengthComputable) {
