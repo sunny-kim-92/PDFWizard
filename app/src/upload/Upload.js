@@ -29,7 +29,7 @@ class Upload extends Component {
     this.setState({ uploadProgress: {}, uploading: true });
     const promises = [];
     this.state.files.forEach(file => {
-      promises.push(this.sendRequest(file));
+      promises.push(this.sendRequest(file))
     });
     try {
       await Promise.all(promises);
