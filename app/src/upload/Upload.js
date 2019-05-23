@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Dropzone from "../dropzone/Dropzone";
 import "./Upload.css";
 import Progress from "../progress/Progress";
+import nlp from "../nlp/nlp.js"
 
 class Upload extends Component {
   constructor(props) {
@@ -46,7 +47,9 @@ class Upload extends Component {
 
       req.onreadystatechange = function() {
         if (req.readyState === XMLHttpRequest.DONE) {
-          console.log(req.responseText)
+          const final = req.responseText.replace(/(<([^>]+)>)|(&lt;([^>]+)&gt;)/ig,"").replace(/\&amp;/g,'')
+          console.log(final)
+          // console.log(nlp(req.responseText))
         }
     }
 
