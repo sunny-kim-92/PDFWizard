@@ -13,7 +13,7 @@ module.exports = function upload(req, res) {
 
     form.on("file", async (field, file) => {
       if (file.type!='application/pdf' && file.type!='application/vnd.openxmlformats-officedocument.wordprocessingml.document'){
-        res.json('filetype error')
+        res.json('filetype error ' + file.type)
       }
       else if (file.type === 'application/pdf') {
         await test.parseFileItems(file.path, (err, item) => {
@@ -25,13 +25,11 @@ module.exports = function upload(req, res) {
             str += item.text + " "
           }
         }else if (!item){
-          // console.log(str)
           res.json(str)
         }
       })
     }
     else {
-      console.log('word')
       return new Promise((resolve, reject) => {
 
         let wordText = ''
@@ -54,30 +52,23 @@ module.exports = function upload(req, res) {
                     stream.on('end', function() {
                         content = Buffer.concat(chunks)
                         zip.close()
-                        resolve(content.toString())
+                        let final = ''
+                        var components = content.toString().split('<w:t')
+                        for(var i=0;i<components.length;i++) {
+                          var tags = components[i].split('>')
+                          var content = tags[1].replace(/<.*$/,"")
+                          final += content+' '
+                          }
+                          console.log(final)
                     })
                 })
             })
         })
-        .then((response, err) => {
-          if (err) { 
-            reject(err) 
-          }
-
-          var body = ''
-          var components = response.toString().split('<w:t')
-
-          for(var i=0;i<components.length;i++) {
-            var tags = components[i].split('>')
-            var content = tags[1].replace(/<.*$/,"")
-            body += content+' '
-            }
-            res.json(body)
-      })
     }
   })
 
 form.on("end", () => {
+  console.log('parsing finished')
 });
 
 };

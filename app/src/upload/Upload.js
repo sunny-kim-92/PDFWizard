@@ -49,7 +49,7 @@ class Upload extends Component {
         if (req.readyState === XMLHttpRequest.DONE) {
           const final = req.responseText.replace(/(<([^>]+)>)|(&lt;([^>]+)&gt;)/ig,"").replace(/\&amp;/g,'')
           console.log(final)
-          // console.log(nlp(req.responseText))
+          console.log(nlp(req.responseText))
         }
     }
 
