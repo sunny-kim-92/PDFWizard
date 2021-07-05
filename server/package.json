@@ -10,11 +10,11 @@
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.16.4",
-    "formidable": "^1.2.1",
+    "express": "^4.17.1",
+    "formidable": "^1.2.2",
     "fs": "0.0.1-security",
-    "node-stream-zip": "^1.8.0",
-    "pdf2json": "^1.1.8",
-    "pdfreader": "^1.0.3"
+    "node-stream-zip": "^1.13.6",
+    "pdf2json": "^1.2.3",
+    "pdfreader": "^1.2.10"
   }
 }
